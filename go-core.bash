@@ -333,7 +333,11 @@ COLUMNS="${COLUMNS-}"
   esac
 
   if _@go.source_builtin 'aliases' --exists "$cmd"; then
-    "$cmd" "$@"
+    if [[ " ${GO_ALIAS_EXPAND_CMDS[*]} " == *" $cmd "* ]]; then
+      eval "$cmd" "$@"
+    else
+      "$cmd" "$@"
+    fi
     return
   fi
 
