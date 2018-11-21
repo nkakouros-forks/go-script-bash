@@ -334,6 +334,9 @@ COLUMNS="${COLUMNS-}"
 
   if _@go.source_builtin 'aliases' --exists "$cmd"; then
     if [[ " ${GO_ALIAS_EXPAND_CMDS[*]} " == *" $cmd "* ]]; then
+      local -a args
+      args="${@/#/\"}"
+      args="${@/%/\"}"
       eval "$cmd" "$@"
     else
       "$cmd" "$@"
