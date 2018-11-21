@@ -125,12 +125,12 @@
 #   $1:  (optional) Reason to include in the failure output
 fail() {
   set "$DISABLE_BATS_SHELL_OPTIONS"
-  local reason="$1"
+  local reason="${1:-}"
 
   if [[ -n "$reason" ]]; then
     printf '%b\n' "$reason" >&2
   fi
-  if [[ -z "$bats_fail_no_output" ]]; then
+  if [[ "${bats_fail_no_output:-}" == '' ]]; then
     printf 'STATUS: %d\nOUTPUT:\n%b\n' "$status" "$output" >&2
   fi
   restore_bats_shell_options '1'

@@ -44,6 +44,25 @@ quotify_expected() {
     "declare -rx _GO_CORE_URL=\"$_GO_CORE_URL\""
     "declare -rx _GO_CORE_VERSION=\"$_GO_CORE_VERSION\""
     "declare -x _GO_COVERALLS_URL=\"$_GO_COVERALLS_URL\""
+    'declare -irx _GO_EC_ARGERR="71"'
+    'declare -irx _GO_EC_BADFRMT="69"'
+    'declare -irx _GO_EC_BASE="64"'
+    'declare -irx _GO_EC_CANTCREAT="73"'
+    'declare -irx _GO_EC_CONFIG="78"'
+    'declare -irx _GO_EC_DEPMISS="72"'
+    'declare -irx _GO_EC_EXT1="65"'
+    'declare -irx _GO_EC_EXT2="66"'
+    'declare -irx _GO_EC_GENERR="64"'
+    'declare -irx _GO_EC_IOERR="74"'
+    'declare -irx _GO_EC_MAX="78"'
+    'declare -irx _GO_EC_NOINPUT="68"'
+    'declare -irx _GO_EC_NOPERM="77"'
+    'declare -irx _GO_EC_NOTFND="70"'
+    'declare -irx _GO_EC_OFFSET="0"'
+    'declare -irx _GO_EC_OK="0"'
+    'declare -irx _GO_EC_SIGN1="75"'
+    'declare -irx _GO_EC_SIGN2="76"'
+    'declare -irx _GO_EC_USAGE="67"'
     'declare -a _GO_IMPORTED_MODULES=()'
     'declare -a _GO_IMPORTED_MODULE_CALLERS=()'
     'declare -a _GO_IMPORTED_MODULE_FILES=()'
@@ -56,6 +75,7 @@ quotify_expected() {
     "declare -rx _GO_SCRIPT=\"$TEST_GO_SCRIPT\""
     "declare -- _GO_SCRIPTS_DIR=\"$TEST_GO_SCRIPTS_DIR\""
     "declare -a _GO_SEARCH_PATHS=(${search_paths[*]})"
+    "declare -x _GO_STANDALONE=\"\""
     "declare -rx _GO_TEST_DIR=\"$_GO_TEST_DIR\""
     "declare -rx _GO_USE_MODULES=\"$_GO_CORE_DIR/lib/internal/use\"")
 
@@ -118,6 +138,25 @@ quotify_expected() {
     "declare -rx _GO_CORE_URL=\"$_GO_CORE_URL\""
     "declare -rx _GO_CORE_VERSION=\"$_GO_CORE_VERSION\""
     "declare -x _GO_COVERALLS_URL=\"$_GO_COVERALLS_URL\""
+    "declare -irx _GO_EC_ARGERR=\"71\""
+    "declare -irx _GO_EC_BADFRMT=\"69\""
+    "declare -irx _GO_EC_BASE=\"64\""
+    "declare -irx _GO_EC_CANTCREAT=\"73\""
+    "declare -irx _GO_EC_CONFIG=\"78\""
+    "declare -irx _GO_EC_DEPMISS=\"72\""
+    "declare -irx _GO_EC_EXT1=\"65\""
+    "declare -irx _GO_EC_EXT2=\"66\""
+    "declare -irx _GO_EC_GENERR=\"64\""
+    "declare -irx _GO_EC_IOERR=\"74\""
+    "declare -irx _GO_EC_MAX=\"78\""
+    "declare -irx _GO_EC_NOINPUT=\"68\""
+    "declare -irx _GO_EC_NOPERM=\"77\""
+    "declare -irx _GO_EC_NOTFND=\"70\""
+    "declare -irx _GO_EC_OFFSET=\"0\""
+    "declare -irx _GO_EC_OK=\"0\""
+    "declare -irx _GO_EC_SIGN1=\"75\""
+    "declare -irx _GO_EC_SIGN2=\"76\""
+    "declare -irx _GO_EC_USAGE=\"67\""
     "declare -a _GO_IMPORTED_MODULES=(${expected_modules[*]})"
     "declare -a _GO_IMPORTED_MODULE_CALLERS=(${expected_module_callers[*]})"
     "declare -a _GO_IMPORTED_MODULE_FILES=(${expected_module_files[*]})"
@@ -130,6 +169,7 @@ quotify_expected() {
     "declare -rx _GO_SCRIPT=\"$TEST_GO_SCRIPT\""
     "declare -- _GO_SCRIPTS_DIR=\"$TEST_GO_SCRIPTS_DIR\""
     "declare -a _GO_SEARCH_PATHS=(${search_paths[*]})"
+    "declare -x _GO_STANDALONE=\"$_GO_STANDALONE\""
     "declare -rx _GO_TEST_DIR=\"$_GO_TEST_DIR\""
     "declare -rx _GO_USE_MODULES=\"$_GO_CORE_DIR/lib/internal/use\"")
 
@@ -168,9 +208,29 @@ quotify_expected() {
     "_GO_CORE_URL: $_GO_CORE_URL" \
     "_GO_CORE_VERSION: $_GO_CORE_VERSION" \
     "_GO_COVERALLS_URL: $_GO_COVERALLS_URL" \
+    "_GO_EC_ARGERR: $_GO_EC_ARGERR" \
+    "_GO_EC_BADFRMT: $_GO_EC_BADFRMT" \
+    "_GO_EC_BASE: $_GO_EC_BASE" \
+    "_GO_EC_CANTCREAT: $_GO_EC_CANTCREAT" \
+    "_GO_EC_CONFIG: $_GO_EC_CONFIG" \
+    "_GO_EC_DEPMISS: $_GO_EC_DEPMISS" \
+    "_GO_EC_EXT1: $_GO_EC_EXT1" \
+    "_GO_EC_EXT2: $_GO_EC_EXT2" \
+    "_GO_EC_GENERR: $_GO_EC_GENERR" \
+    "_GO_EC_IOERR: $_GO_EC_IOERR" \
+    "_GO_EC_MAX: $_GO_EC_MAX" \
+    "_GO_EC_NOINPUT: $_GO_EC_NOINPUT" \
+    "_GO_EC_NOPERM: $_GO_EC_NOPERM" \
+    "_GO_EC_NOTFND: $_GO_EC_NOTFND" \
+    "_GO_EC_OFFSET: $_GO_EC_OK" \
+    "_GO_EC_OK: $_GO_EC_OK" \
+    "_GO_EC_SIGN1: $_GO_EC_SIGN1" \
+    "_GO_EC_SIGN2: $_GO_EC_SIGN2" \
+    "_GO_EC_USAGE: $_GO_EC_USAGE" \
     "_GO_KCOV_DIR: $_GO_KCOV_DIR" \
     "_GO_ROOTDIR: $TEST_GO_ROOTDIR" \
     "_GO_SCRIPT: $TEST_GO_SCRIPT" \
+    "_GO_STANDALONE: $_GO_STANDALONE" \
     "_GO_TEST_DIR: $_GO_TEST_DIR" \
     "_GO_USE_MODULES: $_GO_USE_MODULES"
 }

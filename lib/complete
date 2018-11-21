@@ -24,15 +24,21 @@
 
   while IFS= read -r reply_item; do
     compreply+=("$reply_item")
-  done < <(trap 'echo "$?"' EXIT; compgen "$@"; exit "$?")
+  done < <(trap "" ERR; trap 'echo "$?"' EXIT; compgen "$@"; exit "$?")
 
   compgen_exit_index="$((${#compreply[@]} - 1))"
 
-  if [[ "${compreply[$compgen_exit_index]}" -ne '0' ]]; then
+  if [[ "${compreply[$compgen_exit_index]}" -eq '1' ]]; then
+    return "$_GO_EC_NOTFND"
+  elif [[ "${compreply[$compgen_exit_index]}" -eq '2' ]]; then
+    return "$_GO_EC_USAGE"
+  elif [[ "${compreply[$compgen_exit_index]}" -ne '0' ]]; then
+    # probably never occurs
     return "${compreply[$compgen_exit_index]}"
   fi
   unset "compreply[$compgen_exit_index]"
 
+  add_slashes='false'
   if [[ "$1" =~ ^-[df]$ ]]; then
     add_slashes='true'
   fi
@@ -40,7 +46,7 @@
   for reply_item in "${compreply[@]}"; do
     # Since we're not using -o filenames, we must add slashes to dir names.
     # Since we're using -o nospace, we must add a space to a single match.
-    if [[ -n "$add_slashes" && -d "$reply_item" ]]; then
+    if [[ "$add_slashes" == 'true' && -d "$reply_item" ]]; then
       printf -- '%s/\n' "$reply_item"
     elif [[ "${#compreply[@]}" -eq '1' && ! $reply_item =~ [\ /]$ ]]; then
       printf -- '%s \n' "$reply_item"
@@ -69,12 +75,14 @@
   local completion_item_reference
   local i
 
-  for arg in "${!argv_array_reference}"; do
-    for ((i=0; i != num_completions; ++i)); do
+  for arg in "${!argv_array_reference-}"; do
+    for ((i=0; i < num_completions; ++i)); do
       completion_item_reference="$completions_reference[$i]"
-      if [[ "${!completion_item_reference}" == "$arg" ]]; then
+      if [[ "${!completion_item_reference-}" == "$arg" ]]; then
         unset "$completions_reference[$i]"
       fi
     done
   done
+
+  return "$_GO_EC_OK"
 }
