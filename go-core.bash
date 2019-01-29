@@ -277,16 +277,20 @@ COLUMNS="${COLUMNS-}"
 #   _GO_EC_OK if `search_func` ever returns zero, _GO_EC_GENERR otherwise
 @go.search_plugins() {
   local __gsp_plugins_dir
+  local plugin_dir
+  local -i i=0
 
-  for __gsp_plugins_dir in "${_GO_SCRIPTS_DIR[@]/%//plugins}"; do
+  for plugin_dir in "${_GO_SCRIPTS_DIR[@]/%//plugins}"; do
+    __gsp_plugins_dir="$plugin_dir"
     while true; do
       if "$1" "$__gsp_plugins_dir"; then
         return
-      elif [[ "$__gsp_plugins_dir" == "$_GO_PLUGINS_DIR" ]]; then
+      elif [[ "$__gsp_plugins_dir" == "${_GO_PLUGINS_DIR[i]}" ]]; then
         break
       fi
       __gsp_plugins_dir="${__gsp_plugins_dir%/plugins/*}/plugins"
     done
+    i=i+1
   done
   return 1
 }
@@ -449,8 +453,8 @@ _@go.set_scripts_dir() {
       return 1
     fi
     shift
+    _GO_SCRIPTS_DIR+=("$scripts_dir")
   done
-  _GO_SCRIPTS_DIR+=("$scripts_dir")
 }
 
 _@go.set_scripts_dir "$@" && ec=0 || ec="$?"
