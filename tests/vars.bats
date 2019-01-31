@@ -29,7 +29,8 @@ quotify_expected() {
 
   set "$DISABLE_BATS_SHELL_OPTIONS"
   local search_paths=("[0]=\"$_GO_CORE_DIR/libexec\""
-    "[1]=\"$TEST_GO_SCRIPTS_DIR\"")
+    "[1]=\"$TEST_GO_SCRIPTS_DIR_2\""
+    "[2]=\"$TEST_GO_SCRIPTS_DIR\"")
 
   local expected=("declare -x _GO_BATS_COVERAGE_DIR=\"$_GO_BATS_COVERAGE_DIR\""
     "declare -x _GO_BATS_DIR=\"$_GO_BATS_DIR\""
@@ -69,11 +70,11 @@ quotify_expected() {
     'declare -- _GO_INJECT_MODULE_PATH=""'
     'declare -- _GO_INJECT_SEARCH_PATH=""'
     "declare -x _GO_KCOV_DIR=\"$_GO_KCOV_DIR\""
-    "declare -a _GO_PLUGINS_DIR=([0]=\"$TEST_GO_PLUGINS_DIR\""\)
+    "declare -a _GO_PLUGINS_DIRS=([0]=\"$TEST_GO_PLUGINS_DIR_2\" [1]=\"$TEST_GO_PLUGINS_DIR\")"
     'declare -a _GO_PLUGINS_PATHS=()'
     "declare -x _GO_ROOTDIR=\"$TEST_GO_ROOTDIR\""
     "declare -rx _GO_SCRIPT=\"$TEST_GO_SCRIPT\""
-    "declare -a _GO_SCRIPTS_DIR=([0]=\"$TEST_GO_SCRIPTS_DIR\""\)
+    "declare -a _GO_SCRIPTS_DIRS=([0]=\"$TEST_GO_SCRIPTS_DIR_2\" [1]=\"$TEST_GO_SCRIPTS_DIR\")"
     "declare -a _GO_SEARCH_PATHS=(${search_paths[*]})"
     "declare -x _GO_STANDALONE=\"\""
     "declare -rx _GO_TEST_DIR=\"$_GO_TEST_DIR\""
@@ -111,10 +112,11 @@ quotify_expected() {
     "[2]=\"$TEST_GO_PLUGINS_DIR/plugin2/bin\"")
   local search_paths=("[0]=\"$TEST_GO_ROOTDIR/bin\""
     "[1]=\"$_GO_CORE_DIR/libexec\""
-    "[2]=\"$TEST_GO_SCRIPTS_DIR\""
-    "[3]=\"$TEST_GO_PLUGINS_DIR/plugin0/bin\""
-    "[4]=\"$TEST_GO_PLUGINS_DIR/plugin1/bin\""
-    "[5]=\"$TEST_GO_PLUGINS_DIR/plugin2/bin\"")
+    "[2]=\"$TEST_GO_SCRIPTS_DIR_2\""
+    "[3]=\"$TEST_GO_SCRIPTS_DIR\""
+    "[4]=\"$TEST_GO_PLUGINS_DIR/plugin0/bin\""
+    "[5]=\"$TEST_GO_PLUGINS_DIR/plugin1/bin\""
+    "[6]=\"$TEST_GO_PLUGINS_DIR/plugin2/bin\"")
 
   # Note that the `format` module imports `strings` and `validation`.
   local command_script_trace="$TEST_GO_SCRIPTS_DIR/"
@@ -163,11 +165,11 @@ quotify_expected() {
     "declare -x _GO_INJECT_MODULE_PATH=\"$TEST_GO_ROOTDIR/lib\""
     "declare -x _GO_INJECT_SEARCH_PATH=\"$TEST_GO_ROOTDIR/bin\""
     "declare -x _GO_KCOV_DIR=\"$_GO_KCOV_DIR\""
-    "declare -a _GO_PLUGINS_DIR=([0]=\"$TEST_GO_PLUGINS_DIR\""\)
+    "declare -a _GO_PLUGINS_DIRS=([0]=\"$TEST_GO_PLUGINS_DIR_2\" [1]=\"$TEST_GO_PLUGINS_DIR\""\)
     "declare -a _GO_PLUGINS_PATHS=(${plugins_paths[*]})"
     "declare -x _GO_ROOTDIR=\"$TEST_GO_ROOTDIR\""
     "declare -rx _GO_SCRIPT=\"$TEST_GO_SCRIPT\""
-    "declare -a _GO_SCRIPTS_DIR=([0]=\"$TEST_GO_SCRIPTS_DIR\""\)
+    "declare -a _GO_SCRIPTS_DIRS=([0]=\"$TEST_GO_SCRIPTS_DIR_2\" [1]=\"$TEST_GO_SCRIPTS_DIR\""\)
     "declare -a _GO_SEARCH_PATHS=(${search_paths[*]})"
     "declare -x _GO_STANDALONE=\"$_GO_STANDALONE\""
     "declare -rx _GO_TEST_DIR=\"$_GO_TEST_DIR\""

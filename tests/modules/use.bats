@@ -6,10 +6,10 @@ load "$_GO_CORE_DIR/lib/testing/stubbing"
 
 BUILTIN_MODULE_FILE="$_GO_CORE_DIR/lib/builtin-test"
 PLUGIN_MODULE_FILE="$TEST_GO_PLUGINS_DIR/test-plugin/lib/plugin-test"
-PLUGIN_MODULE_FILE_2="$TEST_GO_SCRIPTS_DIR/../scripts-2/plugins/test-plugin-2/lib/plugin-test-2"
+PLUGIN_MODULE_FILE_2="$TEST_GO_ROOTDIR/scripts-2/plugins/test-plugin-2/lib/plugin-test-2"
 EXPORT_MODULE_FILE="$TEST_GO_ROOTDIR/lib/export-test"
 INTERNAL_MODULE_FILE="$TEST_GO_SCRIPTS_DIR/lib/internal-test"
-INTERNAL_MODULE_FILE_2="$TEST_GO_SCRIPTS_DIR/../scripts-2/lib/internal-test-2"
+INTERNAL_MODULE_FILE_2="$TEST_GO_ROOTDIR/scripts-2/lib/internal-test-2"
 
 TEST_MODULES=(
   "$BUILTIN_MODULE_FILE"
