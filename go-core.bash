@@ -346,7 +346,7 @@ COLUMNS="${COLUMNS-}"
     if [[ " ${GO_ALIAS_EXPAND_CMDS[*]} " == *" $cmd "* ]]; then
       shopt -s expand_aliases
       local -a args
-      eval "$cmd ${@/ /\\\ }"
+      eval "$cmd ${@// /\\\ }"
     else
       "$cmd" "$@"
     fi
