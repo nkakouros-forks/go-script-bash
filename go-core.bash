@@ -29,8 +29,7 @@
 _GO_EC_GENERR="${_GO_EC_GENERR:-70}"
 _GO_EC_DEPMISS="${_GO_EC_DEPMISS:-72}"
 
-if [[ "${BASH_VERSINFO[0]}" -lt '3' ||
-    ( "${BASH_VERSINFO[0]}" -eq '3' && "${BASH_VERSINFO[1]}" -lt '2' ) ]]; then
+if [[ "${BASH_VERSINFO[0]}" -lt '3' || ("${BASH_VERSINFO[0]}" -eq '3' && "${BASH_VERSINFO[1]}" -lt '2') ]]; then
   printf "This module requires bash version 3.2 or greater:\n  %s %s\n" \
     "$BASH" "$BASH_VERSION"
   exit "$_GO_EXIT_DEPMISS"
@@ -233,8 +232,8 @@ COLUMNS="${COLUMNS-}"
     skip_callers=0
   fi
 
-  for ((i=$skip_callers + 1; i != ${#FUNCNAME[@]}; ++i)); do
-    printf '  %s:%s %s\n' "${BASH_SOURCE[$i]}" "${BASH_LINENO[$((i-1))]}" \
+  for ((i = $skip_callers + 1; i != ${#FUNCNAME[@]}; ++i)); do
+    printf '  %s:%s %s\n' "${BASH_SOURCE[$i]}" "${BASH_LINENO[$((i - 1))]}" \
       "${FUNCNAME[$i]}"
   done
   return "$result"
@@ -304,42 +303,50 @@ COLUMNS="${COLUMNS-}"
 #   $1: name of the command to invoke
 #   $2..$#: arguments to the specified command
 @go() {
-  local cmd="${1-}"
+  # Flag to enable/disable hijacking of the '-h' or '--help' options and print
+  # the help for the command given.
+  declare _GO_HELP_HIJACK="${_GO_HELP_HIJACK:-false}"
 
-  if [[ $# > 0 ]]; then
-    shift
+  if [[ "$_GO_HELP_HIJACK" == 'true' ]] \
+    && [[ " $* " == *' -h '* || " $* " == *' --help '* || " $* " == *' -help '* ]]; then
+    cmd='help'
+  else
+    local cmd="${1-}"
+    if [[ "$#" -gt 0 ]]; then
+      shift
+    fi
   fi
 
   case "$cmd" in
-  '')
-    _@go.source_builtin 'help' 1>&2
-    return "$_GO_EC_USAGE"
-    ;;
-  -h|-help|--help)
-    cmd='help'
-    ;;
-  -*)
-    @go.printf "Unknown flag: $cmd\n\n"
-    _@go.source_builtin 'help' 1>&2
-    return "$_GO_EC_USAGE"
-    ;;
-  edit)
-    if [[ -z "$EDITOR" ]]; then
-      echo "Cannot edit $@: \$EDITOR not defined."
-      return "$_GO_EC_CONFIG"
-    fi
-    "$EDITOR" "$@"
-    return
-    ;;
-  run)
-    "$@"
-    return
-    ;;
-  cd|pushd|unenv)
-    @go.printf "$cmd is only available after using \"$_GO_CMD env\" %s\n" \
-      "to set up your shell environment." >&2
-    return "$_GO_EC_USAGE"
-    ;;
+    '')
+      _@go.source_builtin 'help' 1>&2
+      return 1
+      ;;
+    -*)
+      @go.printf "Unknown flag: $cmd\n\n"
+      _@go.source_builtin 'help' 1>&2
+      return 1
+      ;;
+    -h | -help | --help)
+      cmd='help'
+      ;;
+    edit)
+      if [[ -z "$EDITOR" ]]; then
+        echo "Cannot edit $@: \$EDITOR not defined."
+        return 1
+      fi
+      "$EDITOR" "$@"
+      return
+      ;;
+    run)
+      "$@"
+      return
+      ;;
+    cd | pushd | unenv)
+      @go.printf "$cmd is only available after using \"$_GO_CMD env\" %s\n" \
+        "to set up your shell environment." >&2
+      return 1
+      ;;
   esac
 
   if _@go.source_builtin 'aliases' --exists "$cmd"; then
@@ -393,11 +400,10 @@ _@go.run_command_script() {
   local cmd_path="$1"
   shift
 
-  local interpreter
-  interpreter=''
+  local interpreter=''
 
   if [[ -s "$cmd_path" ]]; then
-    read -r interpreter < "$cmd_path"
+    read -r interpreter <"$cmd_path"
   fi
 
   if [[ "${interpreter:0:2}" != '#!' ]]; then
@@ -476,8 +482,8 @@ elif [[ -z "$COLUMNS" ]]; then
   # On Travis, $TERM is set to 'dumb', but `tput cols` still fails.
   if command -v tput >/dev/null && tput cols >/dev/null 2>&1; then
     COLUMNS="$(tput cols)"
-  elif command -v mode.com >/dev/null &&
-    [[ "$(mode.com 'con')" =~ Columns:\ +([0-9]+) ]]; then
+  elif command -v mode.com >/dev/null \
+    && [[ "$(mode.com 'con')" =~ Columns:\ +([0-9]+) ]]; then
     COLUMNS="${BASH_REMATCH[1]}"
   fi
   export COLUMNS="${COLUMNS:-80}"

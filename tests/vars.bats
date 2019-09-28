@@ -64,6 +64,7 @@ quotify_expected() {
     'declare -irx _GO_EC_SIGN1="75"'
     'declare -irx _GO_EC_SIGN2="76"'
     'declare -irx _GO_EC_USAGE="67"'
+    'declare -- _GO_HELP_HIJACK="false"'
     'declare -a _GO_IMPORTED_MODULES=()'
     'declare -a _GO_IMPORTED_MODULE_CALLERS=()'
     'declare -a _GO_IMPORTED_MODULE_FILES=()'
@@ -159,6 +160,7 @@ quotify_expected() {
     "declare -irx _GO_EC_SIGN1=\"75\""
     "declare -irx _GO_EC_SIGN2=\"76\""
     "declare -irx _GO_EC_USAGE=\"67\""
+    'declare -- _GO_HELP_HIJACK="false"'
     "declare -a _GO_IMPORTED_MODULES=(${expected_modules[*]})"
     "declare -a _GO_IMPORTED_MODULE_CALLERS=(${expected_module_callers[*]})"
     "declare -a _GO_IMPORTED_MODULE_FILES=(${expected_module_files[*]})"
