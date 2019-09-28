@@ -310,6 +310,9 @@ COLUMNS="${COLUMNS-}"
   if [[ "$_GO_HELP_HIJACK" == 'true' ]] \
     && [[ " $* " == *' -h '* || " $* " == *' --help '* || " $* " == *' -help '* ]]; then
     cmd='help'
+    if [[ "${1-}" == @(-h|-help|--help) && "$#" -gt 0 ]]; then
+      shift
+    fi
   else
     local cmd="${1-}"
     if [[ "$#" -gt 0 ]]; then
@@ -322,13 +325,13 @@ COLUMNS="${COLUMNS-}"
       _@go.source_builtin 'help' 1>&2
       return 1
       ;;
+    -h | -help | --help)
+      cmd='help'
+      ;;
     -*)
       @go.printf "Unknown flag: $cmd\n\n"
       _@go.source_builtin 'help' 1>&2
       return 1
-      ;;
-    -h | -help | --help)
-      cmd='help'
       ;;
     edit)
       if [[ -z "$EDITOR" ]]; then
