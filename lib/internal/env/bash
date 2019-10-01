@@ -7,23 +7,26 @@ __go_func() {
   local item
   while IFS= read -r item; do
     COMPREPLY+=("$item")
-  done < <("$_GO_SCRIPT" 'complete' "$((COMP_CWORD-1))" "${COMP_WORDS[@]}")
+  done < <("$_GO_SCRIPT" 'complete' "$((COMP_CWORD - 1))" "${COMP_WORDS[@]}")
 }
 
 _go_func() {
-  local cmd="$1"
-  shift
+  local cmd="${1-}"
+  if [[ "$#" -gt 0 ]]; then
+    shift
+  fi
 
   case "$cmd" in
-  unenv)
-    complete -r '_go_func'
-    unset -f '_go_func' '__go_func'
-    ;;
-  cd|pushd)
-    "$cmd" "$_GO_ROOTDIR/$@"
-    ;;
-  *)
-    _GO_CMD='_go_func' "$_GO_SCRIPT" "$cmd" "$@"
+    unenv)
+      complete -r '_go_func'
+      unset -f '_go_func' '__go_func'
+      ;;
+    cd | pushd)
+      "$cmd" "$_GO_ROOTDIR/$@"
+      ;;
+    *)
+      _GO_CMD='_go_func' "$_GO_SCRIPT" "$cmd" "$@"
+      ;;
   esac
 }
 
