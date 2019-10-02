@@ -112,7 +112,9 @@ _@go.help_message_for_command() {
     return "$ec"
   fi
 
-  local cmd_name="${__go_cmd_path//.d\// }"
+  __go_cmd_path="${__go_cmd_path[0]}"
+
+  local cmd_name="${__go_cmd_path[0]//.d\// }"
   cmd_name="${cmd_name##*/}"
 
   . "$_GO_CORE_DIR/lib/internal/command_descriptions"

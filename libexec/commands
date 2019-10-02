@@ -101,7 +101,7 @@ _@go.commands_parse_argv() {
     if [[ "$ec" -ne 0 ]]; then
       return "$?"
     fi
-    __go_commands_search_paths=("${__go_cmd_path}.d")
+    __go_commands_search_paths=("${__go_cmd_path[@]/%/.d}")
   fi
 }
 
