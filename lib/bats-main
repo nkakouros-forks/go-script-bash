@@ -50,7 +50,7 @@ export _GO_BATS_COVERAGE_DIR="${_GO_BATS_COVERAGE_DIR:-$_GO_TEST_DIR/coverage}"
 export _GO_BATS_DIR="${_GO_BATS_DIR:-$_GO_TEST_DIR/bats}"
 
 # Path to the main Bats executable
-export _GO_BATS_PATH="$_GO_BATS_DIR/libexec/bats"
+export _GO_BATS_PATH="$_GO_BATS_DIR/bin/bats"
 
 # Version of Bats to fetch if `_GO_BATS_DIR` is missing
 export _GO_BATS_VERSION="${_GO_BATS_VERSION:-optimized-20170317}"
